@@ -1,0 +1,21 @@
+# RXSS
+
+## Simple feed reader web app
+
+I've made this for myself and as a way to learn JS, it's designed to be used on mobile devices with Termux but works on PC. May be clunky but works as intended, I also *may* fix and add new features.
+
+## Features
+* Load X amount of articles (3 by default) and change the amount of articles of specific feeds.
+* Save feeds locallly to access it offline.
+* Read articles directly from the app, or go to the article's page.
+* Change the feed's title color.
+
+## Project Structure
+### /public
+- Holds the frontend
+### /public/lib
+- Third party libraries
+### /public/svg
+- Radix Icons
+### /userdata
+- Holds the saved links, feeds and configuration

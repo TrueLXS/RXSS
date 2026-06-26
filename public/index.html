@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>RSS Reader</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="viewport" content="height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <link rel="stylesheet" href="./style.css">
+        <link rel="stylesheet" href="./lib/prism.css">
+    </head>
+    <body>
+        
+        <div id="PopupContainer">
+            <div id="Popup">
+                <h3 id="PopupMsg"></h3>
+                <small id="PopupDesc"></small>
+                <div id="PopupInputDiv">
+                    <input id="PopupInput" type="text" placeholder="https://www.xyz.com/rss.xml">
+                    <button id="PopupInputDel" class="generalButton">Del.</button>
+                </div>
+                <hr>
+                <div id="PopupOptionsDiv">
+                    <div>
+                        <p>Title</p>
+                        <input id="cTitleInp" type="text" placeholder="Default Feed's Title">
+                    </div>
+                    <div title="Max number of items displayed from this feed.">
+                        <p>Items</p>
+                        <input id="cItemsNInp" type="text" placeholder="Use Default CFG">
+                    </div>
+                    <div id="PopupCol1" class="colorInputCfg">
+                        <p>Color 1</p>
+                        <input value="#000000" data-jscolor="{preset:'small dark', previewSize: 50}">
+                    </div>
+                    <div id="PopupCol2" class="colorInputCfg">
+                        <p>Color 2</p>
+                        <input value="#101010" data-jscolor="{preset:'small dark', previewSize: 50}">
+                    </div>
+                </div>
+                <div id="PopupActions">
+                    <button class="generalButton" id="PopupButOk">Ok</button>
+                    <button class="generalButton" id="PopupButCancel">Cancel</button>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div id="TOPBAR">
+            <div id="TBDiv">
+                <input id="searchBar" type="text" placeholder="Search">
+                <p style="opacity:0.4;">|</p>
+                <select id="searchBySel">
+                    <option value="bTitle">Blog Title</option>
+                    <option value="fName">Feed Name</option>
+                </select>
+            </div>
+            <button data-active="false" id="showAdvSearch"><img src="./svg/ico_set.svg"></button>
+        </div>
+        <div id="SUBTOPBAR">
+            <div id="stbDiv">
+                <div id="stbCfg">
+           <!-- ??? <div>
+                        <p>Sort by</p>
+                        <select id="feedSortBy">
+                            <option value="date">Date</option>
+                            <option value="name">Name</option>
+                        </select>
+                    </div> -->
+                    <div>
+                        <p>Order</p>
+                        <select id="feedOrder">
+                            <option value="des">Descending</option>
+                            <option value="asc">Ascending</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="stbTags">
+                
+                </div>
+            </div>
+        </div>
+        
+        <div id="FeedCFGBG">
+            <div id="FeedCFGDiv">
+                <div id="FeedLinkContainer">
+                    
+                    <!-- <div class="URLDiv">
+                        <a target="_blank" href="${url}">${url}</a>
+                        <button class="generalButton">Edit</button>
+                    </div> -->
+                    
+                </div>
+                <div id="FeedLinkButCont">
+                    <div class="generalButton" id="AddLinkFeed">
+                        <p>&gt; Add Link &lt;</p>
+                    </div>
+                    <div><p id="nOfLinks"></p></div>
+                </div>
+                
+            </div>
+        </div>
+        <div id="GeneralCFGBG">
+            <div id="GeneralCFGDiv">
+                <div class="cfgInput">
+                    <label for="maxNOfItems">Max. total items</label>
+                    <input type="number" id="maxNOfItems" value="25" placeholder="25" min="1">
+                </div>
+                
+                <div class="cfgInput">
+                    <label for="maxNOfItemsFeed">Max. items per feed</label>
+                    <input type="number" id="maxNOfItemsFeed" placeholder="3" min="1">
+                </div>
+                <!-- Not implemented
+                <div class="cfgInput">
+                    <label for="itemsTimeLimit">Hide items before:</label>
+                    <input type="text" id="itemsTimeLimit" value="never">
+                </div>
+                -->
+            </div>
+        </div>
+        <div id="FEED">
+            <div id="divFeedLoading">
+                <div class="loadingFX"></div>
+                <div class="loadingFX"></div>
+                <div class="loadingFX"></div>
+                <div class="loadingFX"></div>
+                
+                <!-- <img src="./svg/ico_reload.svg"> -->
+                <p id="loadingP">Loading...</p>
+            </div>
+        </div>
+        
+        
+        <div id="TOPBAR-FULL">
+            <div id="TB-FDiv">
+                <button id="closeFeedRender"><img src="./svg/ico_arrowL.svg"></button>
+                <div id="divFFUF">
+                    <p id="fullUrlField"></p>
+                    <div></div>
+                </div>
+                <div>
+                    <button id="saveFeedItem"><img src="./svg/ico_star0.svg"></button>
+                    <button id="gotoFeedSrc"><img src="./svg/ico_arrowUR.svg"></button>
+                </div>
+            </div>
+        </div>
+        <div id="FEED-FULL">
+        </div>
+        
+        <div id="SAVED-ITEMS">
+        </div>
+        
+        <div id="BOTBAR">
+            <div id="bbButCont">
+                <button class="bbButton" id="reloadFeedBut"><img src="./svg/ico_reload.svg"></button>
+                <button class="bbButton" id="openGeneralCfg"><img src="./svg/ico_cfg.svg"></button>
+                <button class="bbButton" id="openSavedFeeds"><img src="./svg/ico_box.svg"></button>
+                <button class="bbButton" id="openLinksCfg"><img src="./svg/ico_3line.svg"></button>
+                
+            </div>
+        </div>
+        
+        
+        <script>
+            window.Prism = window.Prism || {};
+            window.Prism.manual = true;
+        </script>
+        <script src="./lib/prism.js"></script>
+        <script src="./lib/jscolor.min.js"></script>
+        <script src="./script.js"></script>
+        <!-- <script src="./prism/prism.js" type="module" data-manual></script> -->
+    </body>
+</html>

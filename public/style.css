@@ -1,0 +1,920 @@
+:root {
+    --colA: #000410;
+    --colB: #04a;
+    --colC: #08c;
+    --colD: #08f;
+    --colE: #3a8;
+    
+    --colBA: rgba(0,60,150, 0.2);
+    
+    --linkA: #36f; /* <a> */
+    --linkB: #f6f; /* <a> visited */
+    
+    --barSize: 55px;
+    --trans: rgba(0, 0, 0, 0);
+}
+
+body {
+    margin:  0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background-color: #000;
+}
+
+* {
+    font-family: Monaco, monospace;
+}
+
+a {
+    color: var(--linkA);
+    text-shadow: 0 0 8px #58f;
+}
+a:visited {
+    color: var(--linkB);
+    text-shadow: 0 0 8px #f8f;
+}
+
+small {
+    font-size: small;
+}
+
+#divFeedLoading,
+feed-elem {
+    z-index: 85;
+    width: 35%;
+    /*max-height: 300px;
+    overflow: hidden;*/
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    background-image: linear-gradient(135deg, rgba(255,255,255,0.085), rgba(17,17,17,1));
+    margin: 25px 0 15px 0;
+    box-shadow: 0 0 5px #282828;
+    transition: 0.1s;
+}
+.feedItemSaved {
+    background-image: linear-gradient(90deg,rgba(17,35,80,0.5), var(--trans),rgba(0,255,100,0.085));
+}
+.feedItemSaved feed-title p {
+    color: var(--colE);
+}
+
+#divFeedLoading {
+    background-image: linear-gradient(135deg, rgba(50,135,255,0.5), rgba(150,85,255,0.6));
+    height: 200px;
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+    /*text-shadow: 0 0 3px #fff;*/
+    box-shadow: 0 0 18px var(--colB);
+    position: relative;
+    overflow: hidden;
+}
+#divFeedLoading p {
+    color: #ddd;
+}
+#divFeedLoading img {
+    width: 35px;
+}
+/*
+#divFeedLoading > * {
+    filter: drop-shadow(0px 0px 6px var(--colB));
+}*/
+.loadingFX {
+    position: absolute;
+    right: 15%;
+    top: 20%;
+    left:0;
+    width: 430px;
+    height: 520px;
+    opacity: 0.5;
+    background-color: rgba(50,155,255,0.1);
+    border-radius: 40%; /*290px;*/
+    animation: rot 3s infinite linear;
+}
+.loadingFX:nth-child(2) {
+    animation: rot 6s infinite linear;
+    background-image: linear-gradient(135deg, rgba(150,135,255,0.08),rgba(50,155,255,0.16));
+    right: 0;
+}
+.loadingFX:nth-child(3) {
+    animation: rot 4.4s infinite linear;
+    background-image: linear-gradient(135deg, rgba(150,85,255,0.6),rgba(50,155,255,0.16));
+    top: 0;
+    height: 500px;
+    width: 440px;
+    left: 0;
+    right: 25%;
+}
+.loadingFX:nth-child(4) {
+    animation: rot 3.5s infinite ease;
+    background-image: linear-gradient(0deg, rgba(50,85,255,0),rgba(50,195,255,0.05));
+    left: 0;
+    bottom: 100%;
+    right: 10%;
+}
+
+@keyframes rot {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0%);
+    }
+}
+@keyframes fadeInRev {
+    0% {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0%);
+    }
+}
+
+@keyframes openBot {
+    0% { opacity: 1; transform: translateY(100%); }
+    100% { opacity: 1; transform: translateY(0%); }
+}
+
+
+feed-title {
+    height: 35px;
+    width: 100%;
+    font-size: 11px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px 20px 0 0;
+    background-image: linear-gradient(90deg, var(--colA), #111);
+}
+feed-title p,
+feed-title u {
+    color: var(--colC);
+    text-shadow: 0 0 5px var(--colB);
+    padding: initial;
+}
+.feedTitle {
+    cursor: pointer;
+}
+
+feed-title div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+}
+
+feed-content {
+    color: #bbb;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 15px;
+    min-height: 150px;
+}
+feed-content h3 {
+    width: 90%;
+    text-align: center;
+}
+feed-content div {
+    font-size: 12px;
+    width: 90%;
+    overflow-x: hidden;
+}
+feed-content img {
+    display: none;
+}
+
+.feedPubDt {
+    font-size: 13px;
+}
+
+#SUBTOPBAR,
+#TOPBAR-FULL,
+#TOPBAR {
+    background-image: linear-gradient(22deg, rgba(110,75,200,0.1), #222);
+    height: var(--barSize);
+    width:  100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#TOPBAR {
+    justify-content: space-evenly;
+}
+#SUBTOPBAR {
+    height: 0px;
+    border-bottom: 1px solid #444;
+    transition: 0.12s;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+#SUBTOPBAR div {
+    margin: 0 5%;
+}
+#stbDiv {
+    height: 90%;
+    width:  50%;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+#stbDivDef {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+}
+#stbDivDef button {
+    color: #eee;
+    opacity: 0.5;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    outline: none;
+    background: none;
+    width: 50%;
+    margin-top: 5px;
+}
+#stbCfg {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#stbCfg select {
+    height: 75%;
+    width: 50%;
+    border-radius: 25px;
+    font-size: 13px;
+    padding-left: 4px;
+    outline: none;
+    background-color: #eee;
+}
+#stbCfg > select:hover {
+    background-color: #def;
+}
+#stbCfg > div {
+    color: #eee;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 25px;
+    padding-left: 15px;
+    margin-top: 10px;
+    background-image: linear-gradient(90deg, rgba(40,20,85,0.5), rgba(20,20,20,0.7));
+}
+#stbTags {
+    width: 50%;
+    height: auto;
+    background-color: #000;
+}
+
+
+#TOPBAR-FULL {
+    box-shadow: 0 0 25px #002;
+    border-bottom: 1px solid #444;
+    display: none;
+    background-image: none;
+    background-color: rgb(5,0,20);
+}
+
+#TB-FDiv {
+    height: 75%;
+    width:  95%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 15px;
+    background-color: var(--trans);
+    /*background-image: linear-gradient(45deg, #111, var(--trans), #222);*/
+}
+#divFFUF {
+    position: relative;
+    width: calc(55% - 50px);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    color: #ccc;
+    overflow: hidden;
+}
+#divFFUF div {
+    right: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(90deg, var(--trans) 75%, rgb(5,0,20));
+}
+#divFFUF p {
+    text-wrap: nowrap;
+    width: auto;
+    padding: 0;
+    margin: 0;
+}
+#TB-FDiv div:last-child {
+    width: calc((var(--barSize) - 5px) * 3);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#TB-FDiv button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0,0,0,0.25);
+    /*background-image: linear-gradient(45deg, #111, var(--trans), #000);*/
+    height: calc(var(--barSize) - 10px);
+    width:  calc(var(--barSize) - 10px);
+    border: 1px solid #444;
+    /*border: none;*/
+    border-radius: 10px;
+    /*
+    border: 2px solid #444;
+    border-radius: 15px;
+    background-color: #012;
+    background-image: linear-gradient(45deg, #111, var(--trans), #222);
+    */
+}
+#TB-FDiv button:hover {
+    border: 1px solid var(--colD);
+    box-shadow: 0 0 5px var(--colC);
+}
+/*
+#TB-FDiv button:first-child,
+#TB-FDiv button:last-child {
+    width: 20%;
+}*/
+#TB-FDiv button img {
+    height: 75%;
+    /*filter: drop-shadow(0px 0px 2px #d9f);*/
+}
+#TBDiv {
+    height: 75%;
+    width:  50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #eee;
+    border-radius: 25px;
+}
+
+#TOPBAR > button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #eee;
+    border: 1px solid #333;
+}
+#TOPBAR > button[data-active="true"] {
+    box-shadow: inset 0px 0px 8px #333;
+    border: 2px solid #333;
+}
+#TOPBAR > button img {
+    width: 18px;
+    height: 18px;
+}
+
+#TBDiv input {
+    margin-left: 15px;
+    outline: none;
+    border: none;
+    height: 90%;
+    font-size:16px;
+    width: 90%;
+    background-color: #eee;
+}
+#TBDiv select {
+    margin-right: 10px;
+    outline: none;
+    border: none;
+    height: 90%;
+    font-size:16px;
+    background-color: #eee;
+    border-radius: 25px;
+}
+
+#TBDiv div {
+    width: 25%;
+}
+
+#TBDiv lx-button {
+    height: 40px;
+    width: 40px;
+    border: none;
+    outline: 2px solid #444;
+    background-color: #222;
+    
+}
+
+#TBDiv button:first-child {
+    border-radius: 0 0% 0% 50%;
+}
+
+/*#SAVED-ITEMS,*/
+#FEED-FULL {
+    display: none;
+    overflow-y: auto;
+    color: #eee;
+    height: calc(100vh - var(--barSize));
+    width: 100%;
+    background-image: linear-gradient(45deg, rgba(0,0,0,1), rgba(100,55,255,0.15), rgba(200,055,155,0.15));
+}
+
+#FEED-FULL img,
+#FEED-FULL video {
+    max-width: 100%;
+    height: auto;
+}
+#FEED-FULL p:not(#rDivNoContent p) {
+    font-family: Calibri, Arial, seriff;
+}
+
+
+#FEED-FULL code {
+    background-color: #000;
+    border-radius: 6px;
+    white-space: pre;
+    border: 2px solid #444;
+}
+#FEED-FULL pre {
+    background-color: #000;
+    padding: 5px 0 5px 0;
+    border-radius: 10px;
+    border: 2px solid #444;
+    overflow-x: auto;
+    max-width: 95%;
+    margin: 0 auto;
+}
+#FEED-FULL pre code,
+#FEED-FULL pre {
+    font-family: monospace;
+    text-wrap: nowrap;
+    font-size:14px;
+}
+#FEED-FULL code {
+    text-wrap: wrap;
+    word-break: break-all;
+}
+
+#FEED-FULL a {
+    word-break: break-all;
+}
+
+#FEED-FULL > * {
+    display:block!important; /* was this needed? I don't remember */
+}
+
+#SAVED-ITEMS,
+#FEED {
+    overflow-y: auto;
+    height: calc(100vh - (var(--barSize) * 2));
+    width: 100%;
+    background-image: linear-gradient(45deg, rgba(0,0,0,1), rgba(150,75,255,0.15));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#SAVED-ITEMS {
+    
+    display: none;
+    height: calc(100vh - (var(--barSize) * 2));
+    background-image: linear-gradient(45deg, rgba(20,155,155,0.2), rgba(200,100,200,0.15), rgba(20,155,155,0.2));
+}
+#FEED > p {
+    color: rgba(255,200,230,0.9);
+    /*background-color: rgba(85,0,0,0.4);*/
+    margin: 20px;
+    font-size: 19px;
+}
+
+#PopupContainer {
+    position: absolute;
+    display: none;
+    z-index: 105;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0,0,0,0.6);
+    align-items: center;
+    justify-content: center;
+}
+#Popup {
+    width: 60%;
+    height: auto;
+    border: 1px solid var(--colC);
+    border-radius: 10px;
+    /*background-color: #111; */
+    background-image: linear-gradient(135deg, #022, var(--colA), #202);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 0 25px #000;
+}
+
+#PopupInput {
+    width: 100%;
+}
+
+#PopupMsg {
+    display: flex;
+    color: #eee;
+    margin: 15px 0 15px 0;
+    height: auto;
+    width: 90%;
+    padding: 2px 2px;
+    border-radius: 8px;
+    background-image: linear-gradient(90deg, rgba(0,60,60,0.75), var(--trans));
+}
+#PopupDesc {
+    color: rgba(255,255,255,0.5);
+    margin: 15px 0 15px 0;
+    width: 100%;
+    text-align: center;
+}
+
+#PopupActions {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0 15px 0;
+}
+
+#PopupActions button {
+    width: 40%;
+    
+}
+#PopupInputDiv {
+    width: 95%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#PopupInputDiv button {
+    margin-left: 10px;
+}
+
+#PopupOptionsDiv {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    /*align-items: ; */
+    justify-content: flex-start;
+}
+#PopupOptionsDiv div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    border-radius: 20px;
+    background-image: linear-gradient(90deg, var(--trans), rgba(0,30,50,1), var(--trans));
+}
+#PopupOptionsDiv div input {
+    width: 60%;
+}
+#PopupOptionsDiv p {
+    color: #eee;
+    margin: 10px 0;
+}
+#Popup hr {
+    border:none;
+    width: 100%;
+    height:1px;
+    background-image: linear-gradient(90deg, var(--trans), rgba(225,225,255,0.5), var(--trans));
+    margin: 25px 0;
+}
+.colorInputCfg input {
+    width: 30%;
+    border: 1px solid #aae;
+    border-radius: 4px;
+}
+
+.generalButton {
+    border: none;
+    border-radius: 4px;
+    outline: 1px solid var(--colD);
+    background-color: #101019;
+    color: #ddd;
+    user-select: none;
+}
+.generalButton:hover {
+    box-shadow: inset 0px 0px 8px var(--colD);
+}
+
+.URLDiv .generalButton {
+    outline: none;
+    border-radius: 15px 0 0 15px;
+    border-left: 1px solid var(--colD);
+    background-color: #101019;
+    color: #ddd;
+}
+.URLDiv .generalButton:hover {
+    box-shadow: inset 5px 0px 10px var(--colD);
+}
+
+#GeneralCFGDiv,
+#FeedCFGDiv {
+    display: flex;
+    height: 60%;
+    width: 50%;
+    border: 1px solid var(--colA);
+    box-shadow: 0 0 10px var(--colB) inset;
+    border-radius: 25px;
+    animation: openBot 0.25s ease;
+    opacity: 1;
+    overflow-y: auto;
+    flex-direction: column;
+    align-items: center;
+    background-image: linear-gradient(45deg, #022, var(--colA), #002);
+}
+
+#FeedLinkButCont div {
+    width: calc(100% - 30px);
+    margin: 7.5px auto;
+}
+#FeedLinkButCont div p {
+    text-align: center;
+}
+#FeedLinkButCont {   
+    width: 100%;
+}
+#nOfLinks {
+    color: rgba(255,255,255,0.45);
+}
+
+#FeedLinkButCont .generalButton {
+    width: calc(100% - 30px);
+    height: 35px;
+    
+    margin-top: 15px;
+    margin: 15px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#FeedLinkButCont .generalButton p {
+    margin: 0;
+    padding: 0;
+    color: var(--colC);
+}
+
+#FeedLinkContainer {
+    margin-top: 15px;
+    overflow-y: auto;
+    width: calc(100% - 30px);
+    /*border: 2px solid rgba(120,120,255,0.1);*/
+    outline: 2px solid rgba(120,120,255,0.25);
+    border-radius: 10px;
+    height: 50%;
+    background-image: linear-gradient(0deg, rgba(0,0,0,0.25), rgba(50,155,255,0.05), #000);
+}
+
+.URLDiv:nth-child(2n) {
+    background-color: rgba(255,255,255,0.06);
+}
+
+.URLDiv {
+    width: 99%;
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.URLDiv:is(.URLDivError) {
+    background-image: linear-gradient(90deg, rgba(255,0,0,0.2), rgba(0,0,0,0));
+}
+
+.URLDiv button {
+    /*outline: 1px solid #08f;*/
+    text-shadow: 0 0 3px var(--colD);
+    border: none;
+    background-color: #111;
+    color: #eee;
+    width: 100px;
+    height: 100%;
+}
+
+.URLDiv a {
+    overflow-x: hidden;
+    font-size: 12px;
+    width: 100%;
+}
+
+#BOTBAR {
+    position: absolute;
+    height: var(--barSize);
+    width:  100vw;
+    /* top: calc(100% - var(--barSize)); */
+    bottom: 0px;
+    border-radius: 12px 12px 0 0;
+    background-image: linear-gradient(45deg, #103, #049);
+    /*background-image: linear-gradient(45deg, #214, #37c);*/
+    /*border-top: 2px solid #214;*/
+    overflow:hidden;
+    z-index: 100;
+}
+
+
+#TOPBAR > button,
+feed-opts button,
+.bbButton,
+#BOTBAR {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#bbButCont {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.bbButton {
+    background-image: linear-gradient(45deg, #fff, #cbf);
+    height: 45px;
+    width: 45px;
+    outline: none;
+    border: none;
+    border-radius: 50%;
+}
+.bbbActive {
+    border: 1px solid #435;
+    border-top: 1px solid #213;
+    box-shadow: 0 0 10px #4A3A5A inset, 0 0 14px var(--colD);
+    background-image: linear-gradient(0deg, #bbb, #fff);
+}
+.bbButton img {
+    height: 50%;
+    filter: drop-shadow(0px 0px 3px #999);
+}
+.bbButton:active {
+    box-shadow: 0 0 10px var(--colA);
+    background-image: linear-gradient(45deg, #aaf, #cbf);
+}
+
+#GeneralCFGBG,
+#FeedCFGBG {
+    position: absolute;
+    background-color: rgba(0,0,0,0.7);
+    width: 100vw;
+    height: 100vh;
+    z-index: 99;
+    display: none;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+feed-opts {
+    width: 95%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 15px;
+    /* margin: 25px 0 310px 0; */
+}
+
+feed-opts button {
+    width: 65%;
+    height: 30px;
+    border: 1px solid var(--colB);
+    border-radius: 5px;
+    box-shadow: 0 0 10px var(--colA);
+    background-color: rgba(90,90,90,0.1);
+}
+
+feed-elem hr {
+    width: 100%;
+    height: 2px;
+    border: none;
+    outline: none;
+    opacity: 0.4;
+    box-shadow: 0 5px 10px #445;
+    background-image: linear-gradient(90deg, var(--trans), var(--colB), var(--trans));
+}
+
+* > feed-elem:last-child {
+    margin-bottom: 150px;
+}
+
+feed-opts button img {
+    height: 100%;
+}
+feed-opts button:hover {
+    box-shadow: 0 0 3px var(--colB);
+}
+feed-opts button:active {
+    box-shadow: 0 0 8px var(--colC);
+}
+
+#EOFR {
+    margin-bottom: 200px;
+}
+
+
+#rDivNoContent {
+    width: 100%;
+    background-color: rgba(0,0,0,0.6);
+    padding: 10px 0 10px 0;
+}
+
+.feedRenderTitle {
+    text-align: left;
+    /*font-style: italic;
+    background-color: rgba(0,0,0,0.5); */
+    
+}
+.feedFullHr {
+    height: 1px;
+    border: none;
+    outline: none;
+    background-color: rgba(255,255,255,0.25);
+}
+
+#GeneralCFGDiv {
+    overflow-x: hidden;
+}
+.cfgInput {
+    margin: 7.5px 15px;
+    width: 90%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 4px #000;
+    border-radius: 5px;
+    padding: 10px;
+    background-image: linear-gradient(90deg, #111, rgba(0,20,40,0.4), #111);
+    background-color: var(--trans);
+}
+.cfgInput label {
+    color: #ccc;
+    font-size: 14px;
+    user-select: none;
+}
+.cfgInput input {
+    text-align: center;
+    font-size: 15px;
+    border-radius: 25px;
+    width: 20%;
+    padding-left: 5px;
+    border: none;
+    outline: 1px solid var(--colB);
+    transition: 0.15s;
+}
+.cfgInput input:focus {
+    width: 25%;
+    box-shadow: 0 0 6px var(--colB) inset;
+}
+.cfgInput:first-child {
+    margin-top: 20px;
+}
+
+
+/*
+Anything with 1000 or less pixels
+*/
+@media screen and (max-width: 1000px) {
+    #bbButCont {
+        width: 100%;
+    }
+    #GeneralCFGDiv,
+    #FeedCFGDiv {
+        display: flex;
+        height: 60%;
+        width: 100%;
+    }
+    #Popup {
+        width: 90%;
+    }
+    #divFeedLoading {
+        width: 90%;
+    }
+    feed-elem {
+        width: 95%;
+    }
+    #TBDiv {
+        width:  80%;
+    }
+    #stbDiv {
+        width:  90%;
+    }
+}
