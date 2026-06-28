@@ -477,7 +477,8 @@ function mkLinkHTML(link) {
     DATA.links.push({
         dir:   url,
         title: ft,
-        noi:   parseInt(noi) ? parseInt(noi) : -1
+        noi:   parseInt(noi) ? parseInt(noi) : -1,
+        col:   link.col
     });
     nOfLinks++;
 }
@@ -526,6 +527,7 @@ $id("showAdvSearch").addEventListener("click", function() {
 });
 
 $id("reloadFeedBut").addEventListener('click', () => {
+    $id("nofeedsnotice")?.remove();
     const loadDiv = $id("divFeedLoading");
     loadDiv.style.display = "flex";
     const feed_elems  = document.querySelectorAll('feed-elem');
@@ -621,6 +623,7 @@ function createFeedFromData(data) {
     const feedcheck = document.querySelector("feed-elem:not(.favItem)");
     if (!feedcheck) { // check if no feeds were created
         const notice = $mk("p");
+        notice.id = "nofeedsnotice";
         notice.textContent = "No feeds to load";
         FEED.appendChild(notice);
     }

@@ -14,7 +14,7 @@ I've made this for myself and as a way to learn JS, it's designed to be used on 
 ### /public
 - Holds the frontend
 ### /public/lib
-- Third party libraries
+- Third party libraries (jscolor & prism)
 ### /public/svg
 - Radix Icons
 ### /userdata
